@@ -1,4 +1,5 @@
-com/fusesource/examples/activemq/SimpleProducer.class
 com/fusesource/examples/activemq/SimpleConsumer2.class
-com/fusesource/examples/activemq/SimpleConsumer.class
+com/fusesource/examples/activemq/SimpleSubscriber.class
 com/fusesource/examples/activemq/SimplePublisher.class
+com/fusesource/examples/activemq/SimpleProducer.class
+com/fusesource/examples/activemq/SimpleConsumer.class

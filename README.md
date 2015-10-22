@@ -7,7 +7,7 @@ Notes:
 
 * all instructions assume you are executing from the top level directory of this project
 * it is assumed you have Apache Maven installed, and that you are familiar with its usage
-* assumes you are using Apache ActiveMQ 5.9.0 or later, or JBoss A-MQ 6.2.0 or later
+* assumes you are using Apache ActiveMQ 5.11.0 or later, or JBoss A-MQ 6.2.0 or later
 
 Note: All of this code will run correctly against either Apache ActiveMQ 5.9.0 or JBoss A-MQ 6.2.0 as both
 internally use the same ActiveMQ 5.9.0 code base. The instructions on how to start (command line) the brokers from an
@@ -18,8 +18,23 @@ configuration files and deploy them correctly to JBoss A-MQ with its Fabric base
 JBoss A-MQ's install contains an `extras` directory with a support version of the Apache ActiveMQ 5.9.0 binary
 install.
 
+### Prerequisites ###
+
+Please run the following command  to build the project before running these examples:
+
+    shell1> mvn clean install
+
+
 Test Case One: Composite Topics Forwarding to Multiple Durable Queues
 ---------------------------------------------------------------------
+
+### Referenced A-MQ Config Files ###
+
+The following config files are referenced in this example:
+
+- conf/testcase1-compositeTopicForwarding.xml
+
+### Run ###
     
 (1) Start the ActiveMQ broker from Maven:
 
@@ -45,8 +60,16 @@ Test Case Two: Network of Brokers (Topic to Queue bridging)
 The Network of Brokers configuration allows you to scale out the processing of messages across multiple brokers. In
 this configuration, messages are published to a topic then forwarded to a second broker. The second broker bridges the topic to a queue where a Consumer reads the messages.
 
-To run this sample,
+### Referenced A-MQ Config Files ###
 
+The following config files are referenced in this example:
+
+- conf/testcase2-nwob1.xml
+- conf/testcase2-nwob2.xml
+
+### Run ###
+
+To run this sample,
 
 (1) Start ActiveMQ from Maven:
 
@@ -67,6 +90,38 @@ network connection is re-established. This shows how ActiveMQ is saving persiste
 when the broker re-starts. You can especially see this if you kill the broker the consumer is connected to
 (testcase2-nwob1.xml) while the producer continues sending messages to the other broker.
 
+Test Case Two: Fanout Topology
+-----------------------------------------------------------
+
+The Fanout configuration allows you to broadcast messages to multiple brokers. In this configuration, messages are sent to a queue on all listening brokers. Each consumer reads the message from their assigned broker.
+
+### Referenced A-MQ Config Files ###
+
+The following config files are referenced in this example:
+
+- conf/testcase2-fanout1.xml
+- conf/testcase2-fanout2.xml
+
+### Run ###
+
+To run this sample,
+
+(1) Start ActiveMQ from Maven:
+
+    shell1> mvn -P broker-fanout1
+    shell2> mvn -P broker-fanout2
+
+(2) Start the message consumers in another shell:
+
+    shell3> mvn -P consumer-fanout1
+    shell4> mvn -P consumer-fanout2
+
+
+(3) Start the message producer in another shell:
+
+    shell5> mvn -P producer-fanout
+
+
 Test Case Three: Master / Slave Failover (with Topics)
 ------------------------------------------------------
 
@@ -75,9 +130,17 @@ within a message persistence store. It utilizes a shared file system, in this ca
 brokers referencing this same directory. The first broker instance to acquire a file lock is considered the 'master',
 and all subsequent broker instances waiting for the file lock are considered 'slave'.
 
+### Referenced A-MQ Config Files ###
+
+The following config files are referenced in this example:
+
+- conf/testcase3-failover1.xml
+- conf/testcase3-failover2.xml
+
+### Run ###
+
 To run this sample,
 
-    
 (1) Start ActiveMQ from Maven:
 
     shell1> mvn -P broker-failover1
