@@ -93,7 +93,7 @@ when the broker re-starts. You can especially see this if you kill the broker th
 Test Case Two: Fanout Topology
 -----------------------------------------------------------
 
-The Fanout configuration allows you to broadcast messages to multiple brokers. In this configuration, messages are sent to a queue on all listening brokers. Each consumer reads the message from their assigned broker.
+The Fanout configuration demonstrates a client publishing to a topic on a local broker.  The local broker forwards the message from a topic to a queue, then broadcasts it to any connected broker in the federation. Each consumer reads the message from their assigned broker queue.
 
 ### Referenced A-MQ Config Files ###
 
@@ -101,6 +101,7 @@ The following config files are referenced in this example:
 
 - conf/testcase2-fanout1.xml
 - conf/testcase2-fanout2.xml
+- conf/testcase2-fanout3.xml
 
 ### Run ###
 
@@ -110,16 +111,17 @@ To run this sample,
 
     shell1> mvn -P broker-fanout1
     shell2> mvn -P broker-fanout2
+    shell3> mvn -P broker-fanout3
 
 (2) Start the message consumers in another shell:
 
-    shell3> mvn -P consumer-fanout1
-    shell4> mvn -P consumer-fanout2
+    shell4> mvn -P consumer-fanout1
+    shell5> mvn -P consumer-fanout2
 
 
 (3) Start the message producer in another shell:
 
-    shell5> mvn -P producer-fanout
+    shell6> mvn -P publisher
 
 
 Test Case Three: Master / Slave Failover (with Topics)

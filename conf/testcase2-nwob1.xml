@@ -33,11 +33,11 @@
         </managementContext>
 
         <networkConnectors>
-            <networkConnector uri="static:(tcp://localhost:62626)"/>
+            <networkConnector uri="static:(tcp://localhost:62626)" consumerTTL="1"/>
         </networkConnectors>
 
         <persistenceAdapter>
-            <kahaDB directory="./target/activemq-data/nwob1/kahadb"/>
+            <kahaDB directory="./target/activemq-data/nwob1/kahadb" concurrentStoreAndDispatchQueues="false"/>
         </persistenceAdapter>
 
         <transportConnectors>
