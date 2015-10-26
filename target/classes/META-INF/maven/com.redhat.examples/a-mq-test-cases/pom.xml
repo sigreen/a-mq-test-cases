@@ -478,7 +478,78 @@
                 </plugins>
             </build>
         </profile>
+        <profile>
+            <id>subscriber-fanout1</id>
+            <build>
+                <defaultGoal>package</defaultGoal>
 
+                <plugins>
+                    <plugin>
+                        <groupId>org.codehaus.mojo</groupId>
+                        <artifactId>exec-maven-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <phase>package</phase>
+                                <goals>
+                                    <goal>java</goal>
+                                </goals>
+                                <configuration>
+                                    <mainClass>com.fusesource.examples.activemq.SimpleSubscriber</mainClass>
+                                    <systemProperties>
+                                        <systemProperty>
+                                            <key>java.naming.provider.url</key>
+                                            <value>
+                                                failover:(tcp://localhost:62626)
+                                            </value>
+                                        </systemProperty>
+                                        <systemProperty>
+                                            <key>topic</key>
+                                            <value>VirtualTopic.B</value>
+                                        </systemProperty>
+                                    </systemProperties>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+        <profile>
+            <id>subscriber-fanout2</id>
+            <build>
+                <defaultGoal>package</defaultGoal>
+
+                <plugins>
+                    <plugin>
+                        <groupId>org.codehaus.mojo</groupId>
+                        <artifactId>exec-maven-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <phase>package</phase>
+                                <goals>
+                                    <goal>java</goal>
+                                </goals>
+                                <configuration>
+                                    <mainClass>com.fusesource.examples.activemq.SimpleSubscriber</mainClass>
+                                    <systemProperties>
+										<systemProperty>
+                                            <key>java.naming.provider.url</key>
+                                            <value>
+                                                failover:(tcp://localhost:63636)
+                                            </value>
+                                        </systemProperty>
+                                        <systemProperty>
+                                            <key>topic</key>
+                                            <value>VirtualTopic.C</value>
+                                        </systemProperty>
+                                    </systemProperties>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
 <!-- Test Case 3: Topic Master/Slave Failover -->
         <profile>
             <id>broker-failover1</id>
@@ -531,6 +602,10 @@
                                 </goals>
                                 <configuration>
                                     <mainClass>com.fusesource.examples.activemq.SimpleSubscriber</mainClass>
+										<systemProperty>
+                                            <key>topic</key>
+                                            <value>VirtualTopic.A</value>
+                                        </systemProperty>
                                 </configuration>
                             </execution>
                         </executions>

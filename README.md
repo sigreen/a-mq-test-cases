@@ -95,6 +95,8 @@ Test Case Two: Fanout Topology
 
 The Fanout configuration demonstrates a client publishing to a topic on a local broker.  The local broker forwards the message from a topic to a queue, then broadcasts it to any connected broker in the federation. Each consumer reads the message from their assigned broker queue.
 
+In addition, the configuration demonstrates the forwarding of messages over 2 separate independent topics over a network configuration bridge.
+
 ### Referenced A-MQ Config Files ###
 
 The following config files are referenced in this example:

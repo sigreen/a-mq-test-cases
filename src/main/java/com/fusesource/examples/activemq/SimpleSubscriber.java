@@ -29,7 +29,6 @@ public class SimpleSubscriber {
 
     private static final Boolean NON_TRANSACTED = false;
     private static final String CONNECTION_FACTORY_NAME = "myJmsFactory";
-    private static final String DESTINATION_NAME = "VirtualTopic.A";
     private static final int MESSAGE_TIMEOUT_MILLISECONDS = 120000;
 
     public static void main(String args[]) {
@@ -43,10 +42,12 @@ public class SimpleSubscriber {
             connection.start();
 
             Session session = connection.createSession(NON_TRANSACTED, Session.AUTO_ACKNOWLEDGE);
-            Topic topic = session.createTopic(DESTINATION_NAME);
+            String topicName = System.getProperty("topic");
+
+            Topic topic = session.createTopic(topicName);
             MessageConsumer consumer = session.createConsumer(topic);
 
-            LOG.info("Start consuming messages from " + DESTINATION_NAME + " with " + MESSAGE_TIMEOUT_MILLISECONDS + "ms timeout");
+            LOG.info("Start consuming messages from " + topicName + " with " + MESSAGE_TIMEOUT_MILLISECONDS + "ms timeout");
 
             // Synchronous message consumer
             int i = 1;

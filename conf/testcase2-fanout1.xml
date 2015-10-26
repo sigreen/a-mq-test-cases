@@ -39,10 +39,19 @@
 		</persistenceAdapter>
 
 		<networkConnectors>
-			<networkConnector
-				uri="static:fanout:(multicast://default)?fanOutQueues=true" staticBridge="true">
+			<networkConnector uri="static:fanout:(static:(tcp://localhost:62626,tcp://localhost:63636))?fanOutQueues=true" staticBridge="true" name="bridgeOneQueue">
 				<staticallyIncludedDestinations>
 					<queue physicalName="test.queue.simple" />
+				</staticallyIncludedDestinations>
+			</networkConnector>
+			<networkConnector uri="static:(tcp://localhost:62626?)" staticBridge="true" name="bridgeOneTopic">
+				<staticallyIncludedDestinations>
+					<topic physicalName="VirtualTopic.B" />
+				</staticallyIncludedDestinations>
+			</networkConnector>
+			<networkConnector uri="static:(tcp://localhost:63636?)" staticBridge="true" name="bridgeTwoTopic">
+				<staticallyIncludedDestinations>
+					<topic physicalName="VirtualTopic.C" />
 				</staticallyIncludedDestinations>
 			</networkConnector>
 		</networkConnectors>
