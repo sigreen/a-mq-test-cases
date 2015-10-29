@@ -39,6 +39,8 @@ public class SimpleSubscriber {
             Context context = new InitialContext();
             ConnectionFactory factory = (ConnectionFactory) context.lookup(CONNECTION_FACTORY_NAME);
             connection = factory.createConnection();
+            connection.setClientID("ApplicationA");
+
             connection.start();
 
             Session session = connection.createSession(NON_TRANSACTED, Session.AUTO_ACKNOWLEDGE);
